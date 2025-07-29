@@ -1,0 +1,38 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="add-step">
+    <div class="form-wrapper">
+        <h2 class="form-title">
+            {% if form.instance.pk %}Edit Step{% else %}Add a New Step{% endif %}
+        </h2>
+
+        <!-- Save Step Form -->
+        <form method="post" class="step-form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="form-group">
+                {{ form.title.errors }}
+                {{ form.title }}
+            </div>
+
+            <div class="button-row">
+                <button type="submit" class="submit-button">Save Step</button>
+            </div>
+        </form>
+
+        <!-- Delete Step Form (отделна форма, но подредена до Save) -->
+        {% if form.instance.pk %}
+        <form method="post" action="{% url 'steps:delete-step' goal.pk step.pk %}" class="delete-form">
+            {% csrf_token %}
+            <div class="button-row">
+                <button type="submit" class="submit-button danger-button">Delete Step</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
+

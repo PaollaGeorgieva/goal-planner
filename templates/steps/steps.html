@@ -1,0 +1,57 @@
+{% extends 'common/base.html' %}
+{% block content %}
+<main class="steps-container">
+      {% if messages %}
+          <ul class="messages">
+            {% for msg in messages %}
+              <li class="{{ msg.tags }}">{{ msg }}</li>
+            {% endfor %}
+          </ul>
+      {% endif %}
+  <div class="steps-card">
+    <h1 class="steps-title">🛠 Manage Steps for "{{ goal.title }}"</h1>
+
+    <div class="steps-overview">
+      <h2>
+        Steps Overview
+        <span class="steps-progress">( {{ completed_steps }} / {{ total_steps }} )</span>
+      </h2>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ progress }}%;"></div>
+      </div>
+    </div>
+
+    <ul class="steps-list">
+      {% for step in steps %}
+      <li class="step-item {% if step.completed %}completed{% endif %}">
+        <form method="post" action="{% url 'steps:toggle-step' goal.pk step.pk %}">
+          {% csrf_token %}
+          <div class="step-content">
+            <input type="checkbox"
+                   name="completed"
+                   onchange="this.form.submit()"
+                   {% if step.completed %}checked{% endif %}>
+            <span class="step-text">{{ step.title }}</span>
+            <a href="{% url 'steps:edit-step' goal.pk step.pk %}" class="edit-step-btn">✏️</a>
+          </div>
+        </form>
+      </li>
+      {% empty %}
+      <li class="no-steps">No steps added yet.</li>
+      {% endfor %}
+    </ul>
+
+    <div class="add-step-container">
+      <a href="{% url 'steps:step-create' pk=goal.id %}" class="add-step-btn">
+        <span class="plus-icon">➕</span> Add New Step
+      </a>
+    </div>
+
+    <div class="steps-footer">
+      <a href="{% url 'target-goal-details' pk=goal.id %}" class="back-btn">
+        ⬅️ Back to Goal Details
+      </a>
+    </div>
+  </div>
+</main>
+{% endblock %}

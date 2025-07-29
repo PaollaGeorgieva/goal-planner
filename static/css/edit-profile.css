@@ -1,0 +1,125 @@
+.profile-edit-page {
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: url("../images/Flux_Dev_A_vibrant_inspirational_digital_illustration_for_the__3.jpg");
+  background-size: cover;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+
+.profile-edit-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  z-index: 0;
+  border-radius: 20px;
+}
+
+.profile-edit-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.profile-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.form-group {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
+.profile-edit-page .bio-section {
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.profile-edit-page .bio-section label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.profile-edit-page .bio-section textarea {
+  height: 120px;
+  resize: vertical;
+  border-radius: 8px;
+}
+
+.profile-picture-group p,
+.profile-picture-group a,
+.profile-picture-group input[type="file"],
+.profile-picture-group label {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.btn-save {
+  align-self: center;
+  background-color: #6c63ff;
+  color: #fff;
+  padding: 0.9rem 2.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-save:hover {
+  background-color: #574fd6;
+}
+
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-group {
+    flex: 1 1 100%;
+  }
+}

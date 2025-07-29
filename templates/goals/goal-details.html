@@ -1,0 +1,99 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block body_class %}one-goal{% endblock %}
+{% block content %}
+<main>
+  <h2 class="goal-heading">Goal Details</h2>
+
+
+  <div class="goal-details-wrapper">
+    <div class="goal-detail-container">
+
+      <!-- Left: Progress -->
+      <div class="progress-section"
+           data-goal-type="target"
+           data-target="{{ progress_total }}"
+           data-current="{{ progress_current }}"
+           data-is-completed="{{ goal.is_completed|yesno:'true,false' }}"
+      >
+        <div class="gradient-circle">
+          <div class="gradient-backdrop"></div>
+          <div class="white-center">
+            <div class="percentage">0<span>%</span></div>
+            <div class="label">Progress</div>
+          </div>
+          <svg class="progress-ring" width="220" height="220" viewBox="0 0 160 160">
+            <defs>
+              <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C79FFF" />
+                <stop offset="100%" stop-color="#7B9FFF" />
+              </linearGradient>
+            </defs>
+            <circle class="progress-ring-track" cx="80" cy="80" r="70" />
+            <path class="progress-ring-path" id="progress-path"
+                  d="M80,10 A70,70 0 0,1 115,20"
+                  stroke="url(#progressGradient)" />
+            <circle class="progress-dot" cx="115" cy="20" r="4" fill="#4A8CFF" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: Info -->
+      <div class="goal-info">
+        <h3 class="goal-title">{{ goal.title }}</h3>
+        <div class="goal-meta">
+          <p><strong>Category:</strong> {{ goal.category }}</p>
+          <p><strong>Created:</strong> {{ goal.created_at|date:"F j, Y" }}</p>
+        </div>
+
+        <div class="goal-description">
+          <h3>Description:</h3>
+          <p>{{ goal.description }}</p>
+        </div>
+
+        {% if messages %}
+          <ul class="messages">
+            {% for msg in messages %}
+              <li class="{{ msg.tags }}">{{ msg }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <!-- Actions -->
+        <div class="goal-actions">
+            {% if not goal.is_completed %}
+              <form method="post" action="{% url 'complete-target-goal' goal.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn mark-btn">
+                  Mark as Completed
+                </button>
+              </form>
+            {% else %}
+              <p class="text-success">This goal is completed ✅</p>
+            {% endif %}
+
+
+
+          <div class="actions-dropdown">
+            <button class="btn dropdown-toggle">Actions ▼</button>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'steps:step-list' pk=goal.id %}" class="dropdown-item manage-steps">Manage Steps</a></li>
+              <li><a href="{% url 'notes:goal-notes' goal_type='target' pk=goal.id %}" class="dropdown-item notes-btn">View Notes</a></li>
+                {% if not goal.is_completed %}
+                  <li><a href="{% url 'target-goal-edit' pk=goal.pk %}" class="dropdown-item edit-btn">Edit</a></li>
+                  <li><a href="{% url 'target-goal-delete' pk=goal.pk %}" class="dropdown-item delete-btn">Delete</a></li>
+                 {% endif %}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/progress-circle.js' %}"></script>
+{% endblock %}

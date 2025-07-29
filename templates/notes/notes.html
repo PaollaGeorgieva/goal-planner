@@ -1,0 +1,43 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="notes-container">
+
+        {% if messages %}
+          <ul class="messages">
+            {% for msg in messages %}
+              <li class="{{ msg.tags }}">{{ msg }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+    <header class="notes-header">
+        <h1>Reading Notes</h1>
+        <a href="{% url 'notes:add-note' goal_type=goal_type pk=goal.pk %}" class="add-note-btn">+ Add Note</a>
+    </header>
+
+
+    <section class="notes-list">
+        {% for note in notes %}
+
+            <div class="note-card{% if note.image %} with-image{% endif %}{% if forloop.counter|divisibleby:2 %} reverse{% endif %}">
+
+                {% if note.image %}
+                <div class="note-image">
+                    <img src="{{ note.image.url }}" alt="Note image">
+                </div>
+                {% endif %}
+
+                <div class="note-content">
+                    <h3>{{ note.title }}</h3>
+                    <p>{{ note.content }}</p>
+                    <div class="note-date">Created: {{ note.created_at|date:"F j, Y H:i" }}</div>
+                </div>
+                <a class='add-note-btn' href="{% url 'notes:edit-note' goal_type=goal_type pk=goal.id note_id=note.id  %}"> Edit </a>
+            </div>
+        {% empty %}
+            <p class="no-notes">No notes yet. Click “+ Add Note” to create one.</p>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

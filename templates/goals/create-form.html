@@ -1,0 +1,145 @@
+{% include 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="create-page">
+    <section id="create">
+        <div class="form">
+            <h2>
+                {% if form.instance.pk %}
+                    Change {{ form.instance.title }}
+                {% else %}
+                    Create Goal or Habit
+                {% endif %}
+            </h2>
+
+            <form id="create-goal-form" method="post">
+                {% csrf_token %}
+
+                <!-- Type (inline row) -->
+                {% if not form.instance.pk %}
+                    <div class="form-row-inline">
+                        <label><strong>Type:</strong></label>
+                        <label>
+                            <input type="radio" name="goal_type" value="target"
+                                   {% if form.goal_type.value == 'target' or not form.goal_type.value %}checked{% endif %}>
+                            Target Goal
+                        </label>
+                        <label>
+                            <input type="radio" name="goal_type" value="habit"
+                                   {% if form.goal_type.value == 'habit' %}checked{% endif %}>
+                            Habit
+                        </label>
+                        {% if form.goal_type.errors %}
+                            <span class="error">{{ form.goal_type.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <!-- Title & Category (side by side) -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_title">Title</label>
+                        <input type="text" name="title" id="id_title" placeholder="Your goal..." required
+                               value="{{ form.title.value|default_if_none:'' }}">
+                        {% if form.title.errors %}
+                            <span class="error">{{ form.title.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_category">Category</label>
+                        {{ form.category }}
+                        {% if form.category.errors %}
+                            <span class="error">{{ form.category.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- New Category & Start Date -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_new_category">New Category</label>
+                        <input type="text" name="new_category" id="id_new_category" placeholder="If not in the list"
+                               value="{{ form.new_category.value|default_if_none:'' }}">
+                        {% if form.new_category.errors %}
+                            <span class="error">{{ form.new_category.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_start_date">Start Date</label>
+                        <input type="date" name="start_date" id="id_start_date" required
+                               value="{{ form.start_date.value|date:'Y-m-d'|default_if_none:'' }}{% if not form.start_date.value %}{% now "Y-m-d" %}{% endif %}">
+                        {% if form.start_date.errors %}
+                            <span class="error">{{ form.start_date.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- End Date (Target only) -->
+                <div id="target-fields" class="form-row">
+                    <div class="form-group">
+                        <label for="id_end_date">End Date</label>
+                        <input type="date" name="end_date" id="id_end_date"
+                               value="{{ form.end_date.value|date:'Y-m-d'|default_if_none:'' }}{% if not form.end_date.value %}{% now "Y-m-d" %}{% endif %}">
+                        {% if form.end_date.errors %}
+                            <span class="error">{{ form.end_date.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Habit fields -->
+                <div id="habit-fields" class="hidden">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_target_per_period">How many times?</label>
+                            <input type="number" name="target_per_period" id="id_target_per_period" min="1"
+                                   value="{{ form.target_per_period.value|default_if_none:'1' }}">
+                            {% if form.target_per_period.errors %}
+                                <span class="error">{{ form.target_per_period.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label><strong>Period:</strong></label>
+                            <label>
+                                <input type="radio" name="period_unit" value="day"
+                                       {% if form.period_unit.value == 'day' or not form.period_unit.value %}checked{% endif %}> per day
+                            </label>
+                            <label>
+                                <input type="radio" name="period_unit" value="week"
+                                       {% if form.period_unit.value == 'week' %}checked{% endif %}> per week
+                            </label>
+                            {% if form.period_unit.errors %}
+                                <span class="error">{{ form.period_unit.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description as Bio Section -->
+                <div class="form-row bio-section">
+                    <label for="id_description">Description</label>
+                    <textarea name="description" id="id_description" placeholder="Add details...">{{ form.description.value|default_if_none:'' }}</textarea>
+                    {% if form.description.errors %}
+                        <span class="error">{{ form.description.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">
+                        {% if form.instance.pk %}
+                            Save Changes
+                        {% else %}
+                            Create
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/create-form.js' %}"></script>
+{% endblock %}

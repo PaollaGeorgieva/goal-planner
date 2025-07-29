@@ -1,0 +1,143 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load custom_filter %}
+
+{% block content %}
+
+
+    <div class="profile-container">
+      <aside class="sidebar">
+        <div class="avatar-wrapper">
+              {% if profile.profile_picture %}
+                  <img src="{{ profile.profile_picture.url }}" alt="Profile Avatar" class="avatar" />
+              {% else %}
+                  <img src="{% static 'images/image-1.jpeg' %}" alt="Default Avatar" class="avatar" />
+              {% endif %}
+        </div>
+        <div class="user-header">
+          <h2 class="user-name">
+              {% if request.user.profile.first_name %}
+                {{ request.user.profile.first_name }}
+                  {% else %}
+                  {{  request.user.email|before_at  }}
+              {% endif %}
+          </h2>
+
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#about" class="nav-item active" data-target="about">About Me</a>
+          <a href="#stats" class="nav-item" data-target="stats">Key Statistics</a>
+          <a href="#calendar" class="nav-item" data-target="calendar">Activity Calendar</a>
+          <a href="#activity" class="nav-item" data-target="activity">Recent Activity</a>
+          <a href="#settings" class="nav-item" data-target="settings">Settings</a>
+          <form action="{% url 'logout' %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="nav-item logout">Logout</button>
+          </form>
+        </nav>
+      </aside>
+
+
+
+
+      <main class="content">
+        <section id="about" class="panel active">
+              <h1> Account Information</h1>
+
+              <div class="profile-picture">
+                {% if profile.profile_picture %}
+                  <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                  <img src="{% static 'images/image-1.jpeg' %}" alt="Default Profile Picture">
+                {% endif %}
+              </div>
+
+              <!-- About Me -->
+              {% if profile.about_me %}
+                <p>"{{ profile.about_me }}"</p>
+              {% else %}
+                <p>"No bio added."</p>
+              {% endif %}
+
+              <!-- First Name -->
+              <p><strong>First Name:</strong> {{ profile.first_name|default:"Not specified" }}</p>
+
+              <!-- Last Name -->
+              <p><strong>Last Name:</strong> {{ profile.last_name|default:"Not specified" }}</p>
+
+              <!-- Date of Birth -->
+              <p><strong>Date of Birth:</strong> {{ profile.date_of_birth|date:"F j, Y"|default:"Not specified" }}</p>
+
+              <!-- Email -->
+              <p><strong>Email:</strong> <span class="private">{{ profile.user.email }}</span></p>
+        </section>
+
+        <section id="stats" class="panel">
+          <h1>📊 Key Statistics</h1>
+          <ul class="stats-list">
+            <li><strong>Goals Created:</strong> {{ goals_created }}</li>
+            <li><strong>Completed Goals:</strong> {{ completed_goals }}</li>
+            <li><strong>Active Habits:</strong> {{ active_habits }}</li>
+            <li><strong>Current Streak:</strong> {{ current_streak }}</li>
+{#            <li><strong>Badges:</strong> 🏅 10‑Book Challenger, 🔖 Habit Hero</li>#}
+            <li><strong>Last Activity:</strong> {{ last_activity.verb }} “{{ last_activity.name }}” – {{ last_activity.date|date:"M j, Y" }}</li>
+          </ul>
+        </section>
+
+        <section id="calendar" class="panel">
+          <h1>📅 Activity Calendar</h1>
+          <div class="calendar">
+            <div class="calendar-header">
+              <div>Mon</div>
+              <div>Tue</div>
+              <div>Wed</div>
+              <div>Thu</div>
+              <div>Fri</div>
+              <div>Sat</div>
+              <div>Sun</div>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+              <!-- JS  -->
+            </div>
+          </div>
+          <p class="calendar-legend">
+            <span class="dot completed"></span> goal completed
+            <span class="dot checked-in"></span> habit checked in
+          </p>
+      </section>
+
+        </section>
+
+       <section id="activity" class="panel">
+          <h1>🕒 Recent Activity</h1>
+          <ul class="activity-list">
+            {% for act in recent_activity %}
+              <li>✔️ {{ act.verb }} “{{ act.name }}” – {{ act.date|date:"M j, Y" }}</li>
+            {% empty %}
+              <li>No recent activity.</li>
+            {% endfor %}
+          </ul>
+
+       </section>
+
+        <section id="settings" class="panel">
+          <h1>⚙️ Settings</h1>
+          <ul class="settings-list">
+            <li><a href="{% url 'edit-profile' profile.pk%}">Edit Profile</a></li>
+              {% if user.has_usable_password %}
+                    <li><a href="{% url 'password_change' pk=user.pk %}">Change Password</a></li>
+              {% endif %}
+
+
+          </ul>
+        </section>
+
+
+      </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ calendar_map|json_script:"calendar-data" }}
+  <script src="{% static 'js/sidebar-profile.js' %}"></script>
+{% endblock %}

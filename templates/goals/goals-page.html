@@ -1,0 +1,128 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block body_class %}dashboard-page{% endblock %}
+{% block content %}
+
+
+<main class="dashboard-grid">
+
+  <nav class="category-sidebar">
+      <a href="{% url 'goals' %}" class="cat-link {% if selected_category == 'All' %}active{% endif %}">
+        All Goals
+      </a>
+
+      {% for cat in categories %}
+        <a href="{% url 'goals' %}?category={{ cat.name }}" class="cat-link {% if selected_category == cat.name %}active{% endif %}">
+          {{ cat.name }}
+        </a>
+      {% endfor %}
+
+      {% if show_completed %}
+        <a href="{% url 'goals' %}?category=Completed" class="cat-link {% if selected_category == 'Completed' %}active{% endif %}">
+          Completed
+        </a>
+      {% endif %}
+    </nav>
+
+  <div class="dashboard-actions-bar">
+       <form method="get" action="{% url 'goals' %}" class="searchbar" autocomplete="off">
+          {{ search_form.query }}
+          <input type="hidden" name="category" value="{{ selected_category }}">
+          <button type="submit" aria-label="Search">
+            <img src="{% static 'images/search-alt-2-svgrepo-com.svg' %}" height="18" alt="Search">
+          </button>
+       </form>
+
+    <a href="{% url 'create-goal' %}"  class="add-goal-btn">
+      <span class="plus-icon">+</span>
+      Add goal
+    </a>
+  </div>
+
+  <section class="goals-overview">
+    <div class="goals-grid">
+      {% for goal in goals %}
+        <div class="goal-card">
+
+          <span class="goal-emoji">
+            {% if goal.goal_type == "habit" %}🔄{% else %}🎯{% endif %}
+          </span>
+
+
+          <div class="goal-title">{{ goal.title }}</div>
+
+
+          <div class="goal-period">
+            <span class="goal-date-icon">🕒</span>
+            <span class="goal-dates">
+              {{ goal.start_date|date:"M j" }}
+              {% if goal.goal_type == "target" %}
+                &rarr; {{ goal.end_date|date:"M j" }}
+              {% endif %}
+            </span>
+          </div>
+
+
+          <div class="goal-progress-bar">
+            <div class="goal-progress" style="width:{{ goal.progress_percent }}%"></div>
+          </div>
+
+
+          <div class="goal-day">
+            {% if goal.goal_type == "habit" %}
+              {{ goal.get_current_period_checks }}/{{ goal.target_per_period }} this {{ goal.period_unit }}
+            {% elif goal.end_date%}
+              {% with days_passed=goal.start_date|timeuntil:goal.end_date %}
+                {% if days_passed %}
+                  {{ days_passed }} remaining
+                {% else %}
+                  {{ goal.progress_percent }}% complete
+                {% endif %}
+              {% endwith %}
+            {% endif %}
+          </div>
+
+
+          <div class="goal-actions">
+            {% if goal.goal_type == "habit" %}
+                <form action="{% url 'habit-goal-details' pk=goal.pk %}" method="post" class="d-inline">
+
+                    {% csrf_token %}
+
+
+                    <button type="submit" class="checkin-btn">Check in today</button>
+                </form>
+            {% endif %}
+           {% if goal.goal_type == "habit" %}
+            <a href="{% url 'habit-goal-details' goal.pk %}" class="view-btn">View</a>
+           {% else %}
+               <a href="{% url 'target-goal-details' goal.pk %}" class="view-btn">View</a>
+           {% endif %}
+          </div>
+        </div>
+      {% empty %}
+          <div class = 'no-goals'> <p>No goals found in this category.</p></div>
+      {% endfor %}
+    </div>
+
+
+  {# ----------------- Pagination ----------------- #}
+    {% if page_obj.paginator.num_pages > 1 %}
+      {% with qs=request.GET.urlencode|cut:"page={{ page_obj.number }}" %}
+        <nav class="pagination-numbers">
+          {% for num in page_obj.paginator.page_range %}
+            <a
+              href="?{% if qs %}{{ qs }}&{% endif %}page={{ num }}"
+              class="{% if num == page_obj.number %}current-page{% else %}page-link{% endif %}">
+              {{ num }}
+            </a>
+          {% endfor %}
+        </nav>
+      {% endwith %}
+    {% endif %}
+  </section>
+
+</main>
+
+{% endblock %}

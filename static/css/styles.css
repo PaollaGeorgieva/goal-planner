@@ -1,0 +1,14 @@
+@import './landing-page.css';
+@import './home-page.css';
+@import './goals-page.css';
+@import './goal-details.css';
+@import './notes.css';
+@import './habit-details.css';
+@import './create-form.css';
+@import './steps.css';
+@import './profile.css';
+@import './registration.css';
+@import "add-step.css";
+@import "delete-goal.css";
+@import "edit-profile.css";
+@import "change-password.css";

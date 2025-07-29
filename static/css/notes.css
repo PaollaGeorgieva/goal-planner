@@ -1,0 +1,244 @@
+.notes-container {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  font-family: var(--font);
+ 
+}
+
+.note-content {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.15rem;
+  color: #444;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.notes-header h1 {
+  font-size: 2.6rem;
+  color: var(--accent);
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.add-note-btn {
+  background: linear-gradient(135deg, var(--accent), var(--mint-dark));
+  color: white;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  font-size: 1.15rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 6px 20px rgba(169, 138, 247, 0.2);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.add-note-btn:hover {
+  background: linear-gradient(135deg, var(--mint-dark), var(--accent));
+  transform: scale(1.07);
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.note-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, var(--mint) 0%, var(--lavender) 100%);
+  border-radius: 2.5rem;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+  padding: 1.8rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.note-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.note-content {
+  flex: 1 1 300px;
+}
+
+.note-content h3 {
+  margin-top: 0;
+  color: var(--accent);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.note-content p {
+  margin: 0.5rem 0;
+  font-size: 1.15rem;
+  color: #444;
+}
+
+.note-content pre {
+  background-color: var(--beige);
+  padding: 1rem;
+  border-radius: 1.2rem;
+  overflow-x: auto;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.note-content code {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+}
+
+.note-image img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: white;
+  padding: 0.6rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.note-image img:hover {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+
+.note-card[data-category="health"] {
+  background: linear-gradient(135deg, var(--mint) 0%, var(--mint-dark) 100%);
+}
+
+.note-card[data-category="training"] {
+  background: linear-gradient(135deg, var(--blush) 0%, var(--pink) 100%);
+}
+
+.note-card[data-category="reading"] {
+  background: linear-gradient(135deg, var(--beige) 0%, var(--lavender) 100%);
+}
+
+.note-card[data-category="learning"] {
+  background: linear-gradient(135deg, var(--lavender) 0%, var(--accent) 10%);
+}
+
+.notes-list .note-card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.notes-list .note-card:nth-child(even) .note-content {
+  text-align: right;
+}
+
+
+.notes-list .note-card:nth-child(even) .note-image img {
+  transform-origin: center right;
+}
+
+
+.notes-list .note-card:nth-child(odd) .note-content {
+  text-align: left;
+}
+
+.note-date {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #b39ddb;
+  font-style: italic;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  padding-top: 0.5rem;
+  letter-spacing: 0.03em;
+   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 900px) {
+  .notes-container {
+    padding: 1.5rem 1rem;
+    max-width: 90%;
+  }
+
+  .notes-header h1 {
+    font-size: 2rem;
+  }
+
+  .add-note-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  .notes-list {
+    gap: 1.5rem;
+  }
+
+  .note-card {
+    flex-direction: column !important;
+    align-items: flex-start;
+    padding: 1.5rem 1.2rem;
+  }
+
+  .notes-list .note-card:nth-child(even) {
+    flex-direction: column !important;
+  }
+
+  .note-content {
+    flex: 1 1 100%;
+    text-align: left !important;
+    margin-bottom: 1rem;
+  }
+
+  .note-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .note-content p,
+  .note-content pre {
+    font-size: 1rem;
+  }
+
+  .note-image img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .note-date {
+    font-size: 0.9rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .notes-header h1 {
+    font-size: 1.7rem;
+  }
+
+  .add-note-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .note-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .note-content p,
+  .note-content pre {
+    font-size: 0.95rem;
+  }
+
+  .note-image img {
+    width: 90px;
+    height: 90px;
+  }
+}
+

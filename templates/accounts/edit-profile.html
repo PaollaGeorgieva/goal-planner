@@ -1,0 +1,54 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="profile-edit-page">
+    <h1 class="profile-title">Account Information</h1>
+    <div class="profile-info">
+      <form method="post" enctype="multipart/form-data" class="profile-form">
+        {% csrf_token %}
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_first_name">First Name</label>
+            {{ form.first_name }}
+          </div>
+          <div class="form-group">
+            <label for="id_last_name">Last Name</label>
+            {{ form.last_name }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_date_of_birth">Date of Birth</label>
+            {{ form.date_of_birth }}
+          </div>
+          <div class="form-group profile-picture-group">
+              <label for="id_profile_picture">Profile Picture</label>
+              <input type="file" name="profile_picture" id="id_profile_picture">
+
+              {% if form.profile_picture.value %}
+                <p><strong>Current:</strong> {{ form.profile_picture.value }}</p>
+              {% endif %}
+
+              {% if form.profile_picture.clear_checkbox %}
+                <label>
+                  {{ form.profile_picture.clear_checkbox }} Clear
+                </label>
+              {% endif %}
+          </div>
+        </div>
+
+        <div class="form-row bio-section">
+          <label for="id_about_me">Bio</label>
+          {{ form.about_me }}
+        </div>
+
+        <button type="submit" class="btn-save">Save Changes</button>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

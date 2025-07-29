@@ -1,0 +1,110 @@
+.add-step {
+    font-family: 'Inter', sans-serif;
+    background: #f8f7ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.form-wrapper {
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 2rem 3rem;
+    margin-top: 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid rgba(159, 143, 184, 0.3);
+}
+
+.form-title {
+    color: #9f8fb8;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.step-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.step-title-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(159, 143, 184, 0.3);
+    border-radius: 10px;
+    background-color: #f8f7ff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+    color: #4b4453;
+}
+
+.step-title-input:focus {
+    outline: none;
+    border-color: #9f8fb8;
+}
+
+.submit-button {
+    background: #f5c4b0;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.submit-button:hover {
+    background: #f2b397;
+}
+
+
+.note-content-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(159, 143, 184, 0.3);
+    border-radius: 10px;
+    background-color: #f8f7ff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+    color: #4b4453;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.note-content-textarea:focus {
+    outline: none;
+    border-color: #9f8fb8;
+}
+
+.note-image-upload {
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.form-group input[type="file"] {
+    padding: 0.5rem 0;
+    color: #4b4453;
+}
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+
+.danger-button {
+    background: #e58e8e;
+}
+
+.danger-button:hover {
+    background: #d36f6f;
+}

@@ -1,0 +1,82 @@
+
+
+.one-goal .habit-meta {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f9f6ff;
+  border: 1px solid #e1d5f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.one-goal .habit-meta p {
+  margin: 0.4rem 0;
+  line-height: 1.4;
+}
+
+.one-goal .habit-meta strong {
+  color: var(--cool-gray);
+}
+
+
+.one-goal .goal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+
+.one-goal .mark-btn,
+.one-goal .dropdown-toggle {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.one-goal .actions-dropdown {
+  position: relative;
+  margin: 0;
+}
+
+.one-goal .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.25rem;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 0.25rem 0;
+  list-style: none;
+  min-width: 140px;
+  z-index: 20;
+}
+
+.one-goal .actions-dropdown:hover .dropdown-menu,
+.one-goal .actions-dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+.one-goal .dropdown-menu li {
+  margin: 0;
+}
+
+.one-goal .dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.one-goal .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.one-goal .dropdown-item.delete-btn {
+  color: #c0392b;
+}
+
+

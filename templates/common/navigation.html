@@ -1,0 +1,58 @@
+{% load static %}
+{% load custom_filter %}
+<nav class="navbar">
+      <div class="container">
+
+        <div class="logo">
+
+          <a href="{% url 'landing-page' %}">
+            <img width="50" src="{% static 'images/logo.jpg' %}" alt="Logo">
+          </a>
+
+          <a href="{% url 'landing-page' %}" class="home" >
+            <i>Goal Planner</i>
+          </a>
+        </div>
+        <button class="nav-toggle" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links">
+          <ul class="nav-group">
+               {% if not request.user.is_authenticated %}
+                    <li class="nav-item">
+                      <a href="{% url 'register' %}"><i>Start today</i></a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{% url 'login' %}"><i>Login</i></a>
+                    </li>
+               {% else %}
+                    <li class="nav-item">
+                      <a href="{% url 'home' %}"><i>Home</i></a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{% url 'goals' %}"><i>Goals</i></a>
+                    </li>
+                    <li class="nav-item user-profile">
+                      <a href="{% url 'profile-details' request.user.pk %}" class="profile-link">
+                            {% if request.user.profile.profile_picture %}
+                                <img src="{{ request.user.profile.profile_picture.url }}" alt="Профил" class="profile-img">
+                            {% else %}
+                                <img src="{% static 'images/image-1.jpeg' %}" alt="Профил" class="profile-img">
+                            {% endif %}
+                            <span class="username"><i>
+                                {% if request.user.profile.first_name %}
+                                    {{ request.user.profile.first_name }}
+                                {% else %}
+                                      {{  request.user.email|before_at  }}
+                                {% endif %}</i>
+                            </span>
+                      </a>
+                    </li>
+               {% endif %}
+          </ul>
+        </div>
+      </div>
+</nav>

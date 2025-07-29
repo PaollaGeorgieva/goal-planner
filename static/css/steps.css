@@ -1,0 +1,334 @@
+:root {
+  --form-background: #ffffff;
+  --border-radius-big: 25px;
+  --border-radius-round: 50%;
+  --h2-color: #9f8fb8;
+  --orange-background: #f5c4b0;
+  --hover-background: #ffffff;
+  --light-input-background: #f8f7ff;
+  --text-muted: #4b4453;
+  --input-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --light-border: 1px solid rgba(159, 143, 184, 0.3);
+  --button-primary-hover: #f2b397;
+  --font-primary: 'Inter', sans-serif;
+  --font-heading: 'Inter', sans-serif;
+
+
+  --gradient-1: linear-gradient(135deg, #f8f7ff 0%, #e1d9f3 100%);
+  --gradient-2: linear-gradient(135deg, #ffe8e0 0%, #f5c4b0 100%);
+  --gradient-3: linear-gradient(135deg, #e1d9f3 0%, #9f8fb8 100%);
+  --gradient-4: linear-gradient(135deg, #ffd4c8 0%, #f2b397 100%);
+}
+
+.steps {
+  font-family: var(--font-primary);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: 	#FFFFF0
+}
+
+
+.steps-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.steps-card {
+  padding: 2rem;
+}
+
+.steps-title {
+  font-size: 2.4rem;
+  color: var(--h2-color);
+  margin: 0;
+  letter-spacing: 1px;
+  font-family: var(--font-heading);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.steps-overview {
+  margin-bottom: 1.5rem;
+}
+
+.steps-overview h2 {
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.steps-progress {
+  color: var(--orange-background);
+  font-weight: 600;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+}
+
+.step-item {
+  background: var(--gradient-1);
+  border-radius: 2.5rem;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+  padding: 1.8rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.step-item:nth-child(2n) {
+  background: var(--gradient-2);
+}
+
+.step-item:nth-child(3n) {
+  background: var(--gradient-3);
+}
+
+.step-item:nth-child(4n) {
+  background: var(--gradient-4);
+}
+
+.step-item:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.step-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.step-content input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--orange-background, #FF9800);
+  border-radius: 50%;
+  background: #fff;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  margin-right: 1em;
+  vertical-align: middle;
+}
+
+.step-content input[type="checkbox"]:hover {
+  transform: scale(1.1) rotate(-5deg);
+  border-color: #FFA726;
+  box-shadow: 0 6px 18px rgba(255,152,0,0.15);
+}
+
+.step-content input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: var(--orange-background, #FF9800);
+  font-size: 1.4em;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -60%);
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.step-content input[type="checkbox"]:checked {
+  background: #FFF3E0;
+  border-color: #FF9800;
+}
+.step-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.step-item.completed .step-text {
+  color: var(--h2-color);
+}
+
+.edit-step-btn {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: var(--h2-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.edit-step-btn:hover {
+  background-color: white;
+  transform: scale(1.1);
+}
+
+
+.add-step-container {
+  display: flex;
+  justify-content: center;
+  margin: 2.5rem 0;
+}
+
+.add-step-btn {
+  background: linear-gradient(135deg, var(--orange-background), var(--button-primary-hover));
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  box-shadow: 0 6px 20px rgba(245, 196, 176, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.add-step-btn:hover {
+  background: linear-gradient(135deg, var(--button-primary-hover), var(--orange-background));
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(245, 196, 176, 0.6);
+}
+
+.plus-icon {
+  font-size: 20px;
+  margin-right: 3px;
+}
+
+.steps-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.back-btn {
+  background-color: transparent;
+  color: var(--h2-color);
+  border: 2px solid var(--h2-color);
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn:hover {
+  background-color: var(--h2-color);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(159, 143, 184, 0.4);
+}
+
+@media (max-width: 900px) {
+  .steps-container {
+    padding: 1.5rem 1rem;
+    max-width: 90%;
+    margin: 1rem auto;
+  }
+
+  .steps-card {
+    padding: 1rem;
+  }
+
+  .steps-title {
+    font-size: 2rem;
+  }
+
+  .add-step-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .steps-list {
+    gap: 1.5rem;
+  }
+
+  .step-item {
+    padding: 1.5rem;
+  }
+
+  .step-text {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-container {
+    padding: 1rem 0.8rem;
+  }
+
+  .steps-title {
+    font-size: 1.7rem;
+  }
+
+  .steps-overview h2 {
+    font-size: 1.2rem;
+  }
+
+  .step-item {
+    padding: 1.2rem;
+    border-radius: 2rem;
+  }
+
+  .custom-checkbox {
+    width: 30px;
+    height: 30px;
+  }
+
+  .custom-checkbox:after {
+    font-size: 18px;
+  }
+
+  .step-text {
+    font-size: 1.1rem;
+  }
+
+  .edit-step-btn {
+    min-width: 35px;
+    height: 35px;
+    padding: 0.4rem;
+  }
+
+  .add-step-btn {
+    padding: 0.7rem 1.3rem;
+    font-size: 1rem;
+  }
+
+  .back-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+}
+
+.step-item.completed .step-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  opacity: 0.6;
+}

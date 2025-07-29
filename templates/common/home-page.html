@@ -1,0 +1,113 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block content %}
+{% load custom_filter %}
+
+
+  <main class="dashboard-grid">
+    <!-- 1. Welcome, Card -->
+    <section class="card welcome-card">
+      <h1>Hi, {% if request.user.profile.first_name %}
+      	{{ request.user.profile.first_name }}! 🌞
+          {% else %}
+          {{  request.user.email|before_at  }}! 🌞
+      {% endif %} </h1>
+      <p class="welcome-subtext">Proud of you for showing up today!</p>
+      <a href="{% url 'create-goal' %}"  class="add-goal-btn">+ Add Goal</a>
+    </section>
+
+    <!-- 2. Today's Focus Card -->
+    <section class="card focus-card">
+      <h2> Today’s Simple Goal</h2>
+      <label class="focus-task">
+        <input type="checkbox" id="focus-checkbox" />
+        <span class="custom-checkbox"></span>
+        {{ daily_goal }}
+      </label>
+      <div id="focus-feedback" class="focus-feedback">Yay! You’re doing great! 🎉</div>
+    </section>
+
+    <!-- 3. Goals Overview -->
+    <section class="goals-overview">
+    {% if recent_goals %}
+    	<h2>Recent Goals</h2>
+    {% endif %}
+      <div class="goals-grid">
+      {% for goal in recent_goals %}
+        <div class="goal-card">
+
+          <span class="goal-emoji">
+            {% if goal.goal_type == "habit" %}🔄{% else %}🎯{% endif %}
+          </span>
+
+
+          <div class="goal-title">{{ goal.title }}</div>
+
+
+          <div class="goal-period">
+            <span class="goal-date-icon">🕒</span>
+            <span class="goal-dates">
+              {{ goal.start_date|date:"M j" }}
+              {% if goal.goal_type == "target" %}
+                &rarr; {{ goal.end_date|date:"M j" }}
+              {% endif %}
+            </span>
+          </div>
+
+
+          <div class="goal-progress-bar">
+            <div class="goal-progress" style="width:{{ goal.progress_percent }}%"></div>
+          </div>
+
+
+          <div class="goal-day">
+            {% if goal.goal_type == "habit" %}
+              {{ goal.get_current_period_checks }}/{{ goal.target_per_period }} this {{ goal.period_unit }}
+            {% elif goal.end_date %}
+              {% with days_passed=goal.start_date|timeuntil:goal.end_date %}
+                {% if days_passed %}
+                  {{ days_passed }} remaining
+                {% else %}
+                  {{ goal.progress_percent }}% complete
+                {% endif %}
+              {% endwith %}
+            {% endif %}
+          </div>
+
+
+          <div class="goal-actions">
+                {% if goal.goal_type == "habit" %}
+                     <form action="{% url 'habit-goal-details' pk=goal.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="checkin-btn">Check in today</button>
+                {% endif %}
+                {% if goal.goal_type == "habit" %}
+                    <a href="{% url 'habit-goal-details' goal.pk %}" class="view-btn">View</a>
+               {% else %}
+                    <a href="{% url 'target-goal-details' goal.pk %}" class="view-btn">View</a>
+               {% endif %}
+          </div>
+
+        </div>
+
+      {% endfor %}
+    </div>
+
+
+
+
+    </section>
+  </main>
+
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{% static 'js/focus-card.js' %}"></script>
+{% endblock %}
+
+
+
+  
+
+

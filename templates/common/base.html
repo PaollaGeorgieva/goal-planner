@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+    {% include 'common/head.html' %}
+    <body class="{% block body_class %}{% endblock %}">
+      <header>
+
+        {% include 'common/navigation.html' %}
+
+      </header>
+
+
+
+      {% block content %}
+      {% endblock %}
+
+
+      <footer class="footer">
+        <span class="footer-section">
+          © Paola Georgieva 2025. All rights reserved.
+        </span>
+      </footer>
+
+
+      <script src="{% static 'js/nav.js' %}"></script>
+
+      {% block scripts %}
+      {% endblock %}
+
+
+
+</body>
+</html>
+

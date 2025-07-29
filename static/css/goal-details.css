@@ -1,0 +1,250 @@
+
+.one-goal .goal-heading {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: var(--cool-gray);
+}
+
+
+.one-goal .goal-details-wrapper {
+  width: 100%;
+}
+
+
+.one-goal .goal-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1rem;
+  margin: 10px auto;
+  width: 80%;
+  border-radius: 16px;
+  box-sizing: border-box;
+  background-color: var(--pale-purple);
+  justify-content: space-between;
+}
+
+
+.one-goal .goal-info {
+  order: 1;
+  flex: 1 1 300px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+
+.one-goal .progress-section {
+  order: 2;
+  flex: 1 1 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.one-goal .gradient-circle {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.one-goal .gradient-backdrop {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 181, 255, 0.4) 30%,
+    rgba(202, 159, 255, 0.7) 60%,
+    rgba(123, 159, 255, 0.7) 100%);
+  filter: blur(10px);
+}
+
+.one-goal .white-center {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.one-goal .percentage {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1;
+}
+
+.one-goal .percentage span {
+  font-size: 1.5rem;
+}
+
+.one-goal .label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.25rem;
+}
+
+.one-goal .progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.one-goal .progress-ring-track {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 1;
+}
+
+.one-goal .progress-ring-path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(186, 157, 255, 0.8));
+  stroke: url(#progressGradient);
+}
+
+.one-goal .progress-dot {
+  filter: drop-shadow(0 0 4px rgba(74, 140, 255, 0.9));
+}
+
+.one-goal .goal-title {
+  font-size: 1.5rem;
+  color: var(--cool-gray);
+  margin-bottom: 1rem;
+}
+
+.one-goal .goal-meta p,
+.one-goal .goal-description p {
+  margin: 0.3rem 0;
+  color: #444;
+}
+
+.one-goal .goal-description h3 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--cool-gray);
+}
+
+
+.one-goal .goal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+.one-goal .mark-btn,
+.one-goal .dropdown-toggle {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.one-goal .actions-dropdown {
+  position: relative;
+  margin: 0;
+}
+
+
+.one-goal .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.25rem;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 0.25rem 0;
+  list-style: none;
+  min-width: 140px;
+  z-index: 20;
+}
+
+.one-goal .actions-dropdown:hover .dropdown-menu,
+.one-goal .actions-dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+.one-goal .dropdown-menu li {
+  margin: 0;
+}
+
+.one-goal .dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.one-goal .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+.one-goal .dropdown-item.delete-btn {
+  color: #c0392b;
+}
+
+.one-goal .btn {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  text-decoration: none;
+  outline: none;
+}
+
+
+.one-goal .mark-btn {
+  background-color: #b18db3;
+  color: white;
+}
+
+.one-goal .notes-btn {
+  background-color: var(--lavender-web);
+  color: #333;
+}
+
+.one-goal .edit-btn {
+  background-color: var(--thistle);
+  color: #333;
+}
+
+.one-goal .delete-btn {
+  background-color: #ffcccc;
+  color: #333;
+}
+
+
+.one-goal .btn:hover {
+  opacity: 0.9;
+}

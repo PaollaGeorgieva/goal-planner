@@ -1,0 +1,72 @@
+.main-delete {
+    background: #f9f5ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+.delete-box {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 10px 40px rgba(168, 140, 255, 0.2);
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    border: 2px solid #e2d6f5;
+    position: relative;
+}
+
+.delete-image {
+    width: 100px;
+    margin-bottom: 1.5rem;
+}
+
+.delete-box h2 {
+    font-size: 1.6rem;
+    color: #7e57c2;
+    margin-bottom: 2rem;
+}
+
+.main-delete .button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.main-delete .btn {
+    padding: 0.8rem 1.6rem;
+    border-radius: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: inline-block;
+    min-width: 130px;
+    text-align: center;
+}
+
+.main-delete .btn:hover {
+    transform: scale(1.05);
+}
+
+
+.btn.yes {
+    background: linear-gradient(135deg, #e57373, #f06292);
+    color: white;
+}
+
+.btn.no {
+    background: linear-gradient(135deg, #aed581, #81c784);
+    color: white;
+    display: inline-block;
+    text-align: center;
+}
