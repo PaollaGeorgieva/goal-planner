@@ -71,13 +71,40 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 ```
 
-* **Google**: The `.env.example` includes test `GOOGLE_CLIENT_ID` and `GOOGLE_SECRET_KEY`. To enable Google login, **uncomment** the `APP` block under `'google'` so it becomes active.
+* **Google**: To enable Google login:
+  1. Create a Google Cloud project and configure OAuth 2.0 credentials.
+  2. Add your credentials to the .env file as GOOGLE_CLIENT_ID and GOOGLE_SECRET_KEY..
+  3. Uncomment the APP block under 'google' in SOCIALACCOUNT_PROVIDERS.
+  4. In `templates/accounts/register.html` and `templates/accounts/login.html`, **uncomment** the following block to enable the Google login button:
+    ```html
+    <a href="{% provider_login_url 'google' %}" class="btn btn-google">
+        <span class="google-circle"></span> <span>Google</span>
+    </a>
+    ```
+   **Remove** any unnecessary placeholder buttons like:
+    ```html
+    <a href="#" class="btn btn-google">
+        <span class="google-circle"></span> <span>Google</span>
+    </a>
+    ```
 
 * **Facebook**: To enable Facebook login:
 
   1. Create a Facebook App and obtain your App ID & App Secret.
   2. Add them to your `.env` as `FACEBOOK_CLIENT_ID` and `FACEBOOK_SECRET_KEY`.
   3. **Uncomment** the `APP` block under `'facebook'` in `SOCIALACCOUNT_PROVIDERS`.
+  4. In `templates/accounts/register.html` and `templates/accounts/login.html`, **uncomment** the following block to enable the Facebook login button:
+    ```html
+    <a href="{% provider_login_url 'facebook' %}" class="btn btn-facebook">
+        <i class="fab fa-facebook-f"></i> <span>Facebook</span>
+    </a>
+    ```
+   **Remove** any unnecessary placeholder buttons like:
+    ```html
+    <a href="#" class="btn btn-facebook">
+        <i class="fab fa-facebook-f"></i> <span>Facebook</span>
+    </a>
+    ```
 
 * **Disable Facebook**: If you prefer **not** to use Facebook login, **leave the `APP` block commented** or **comment out** the entire `'facebook'` entry:
 
@@ -89,6 +116,7 @@ SOCIALACCOUNT_PROVIDERS = {
   #     # 'APP': { ... }
   # },
   ```
+  Do the same for Google if you don't intend to use it.
 
 ## 5. Run migrations
 
