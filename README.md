@@ -118,11 +118,9 @@ SOCIALACCOUNT_PROVIDERS = {
   ```
   Do the same for Google if you don't intend to use it.
 
+
+
 ## 5. Run migrations
-
-Run migrations\*\* The `.env.example` file already includes test keys for Google authentication to help you get started.
-
-## 5. Run migrations## 5. Run migrations
 
 ```bash
 python manage.py migrate
