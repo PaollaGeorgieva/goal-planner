@@ -126,9 +126,5 @@ class HabitCheck(models.Model):
     habit = models.ForeignKey(HabitGoal, related_name='checks', on_delete=models.CASCADE)
     date = models.DateField()
 
-class SimpleGoal(models.Model):
-    title = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.title
 

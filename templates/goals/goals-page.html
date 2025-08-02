@@ -12,6 +12,15 @@
         All Goals
       </a>
 
+      <a href="{% url 'goals' %}?category=Habit" class="cat-link {% if selected_category == 'Habit' %}active{% endif %}">
+          Habit
+      </a>
+
+      <a href="{% url 'goals' %}?category=Target" class="cat-link {% if selected_category == 'Habit' %}active{% endif %}">
+          Target Goals
+      </a>
+
+
       {% for cat in categories %}
         <a href="{% url 'goals' %}?category={{ cat.name }}" class="cat-link {% if selected_category == cat.name %}active{% endif %}">
           {{ cat.name }}

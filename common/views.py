@@ -1,3 +1,4 @@
+import datetime
 import random
 from datetime import date
 
@@ -6,7 +7,7 @@ from django.views.generic import TemplateView
 
 
 from goals.mixins import GoalListMixin
-from goals.models import SimpleGoal
+from goals.simple_goals import GOALS
 
 
 class LandingPageView(TemplateView):
@@ -19,16 +20,12 @@ class HomePageView(LoginRequiredMixin,GoalListMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['recent_goals'] = self.get_recent_goals(limit=4)
-        simple_goals = list(SimpleGoal.objects.all())
-        if simple_goals:
-            today_str = date.today().strftime("%Y%m%d")
-            day_number = int(today_str)
+        day_number = datetime.date.today().toordinal()
 
-            index = day_number % len(simple_goals)
+        index = day_number % len(GOALS)
 
-            context['daily_goal'] = simple_goals[index].title
-        else:
-            context['daily_goal'] = "No goals available"
+
+        context['daily_goal'] = GOALS[index]
         return context
 
 

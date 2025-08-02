@@ -13,9 +13,9 @@ class AllGoalsView(LoginRequiredMixin,GoalListMixin, ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('query')
-        filtered_goals = self.get_filtered_user_goals()
+        filtered_goals = self.get_filtered_user_goals() # we get the filtered goals based on the category
         if query:
-            filtered_goals = [g for g in filtered_goals if query.lower() in g.title.lower()]
+            filtered_goals = [goal for goal in filtered_goals if query.lower() in goal.title.lower()]
 
         return filtered_goals
 

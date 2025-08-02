@@ -49,6 +49,13 @@ class GoalListMixin:
             qs_target = TargetGoal.objects.filter(user=user, is_completed=True)
             qs_habit = HabitGoal.objects.filter(user=user, is_completed=True)
 
+        elif selected_category == 'Habit':
+            return HabitGoal.objects.filter(user=user, is_completed=False).order_by('-created_at')
+
+            # 3) Ако искаме само Target (незавършени):
+        elif selected_category == 'Target':
+            return TargetGoal.objects.filter(user=user, is_completed=False).order_by('-created_at')
+
         else:
 
             base_filters = dict(user=user, is_completed=False)
@@ -71,6 +78,7 @@ class GoalListMixin:
         return filtered_goals
 
 
+## forms mixin
 
 class CategoryMixin:
 

@@ -84,8 +84,8 @@
               <li><a href="{% url 'notes:goal-notes' goal_type='habit' pk=goal.id %}" class="dropdown-item notes-btn">View Notes</a></li>
                 {% if not goal.is_completed %}
                   <li><a href="{% url 'habit-goal-edit' pk=goal.pk %}" class="dropdown-item edit-btn">Edit</a></li>
-                  <li><a href="{% url 'habit-goal-delete' pk=goal.pk %}" class="dropdown-item delete-btn">Delete</a></li>
                 {% endif %}
+              <li><a href="{% url 'habit-goal-delete' pk=goal.pk %}" class="dropdown-item delete-btn">Delete</a></li>
             </ul>
           </div>
 
