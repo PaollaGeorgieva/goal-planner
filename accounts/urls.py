@@ -14,7 +14,7 @@ urlpatterns = [
     path("profile/<int:pk>/", include([
         path('', views.ProfileDetailView.as_view(), name='profile-details'),
         path('edit/', views.ProfileEditView.as_view(), name='edit-profile'),
-        path('delete/', views.app_user_delete_view, name='delete-profile'),
+
         path(
             'password_change/',
             CustomPasswordChangeView.as_view(

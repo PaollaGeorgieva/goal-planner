@@ -49,4 +49,4 @@ class HabitGoalDetailView(LoginRequiredMixin, DetailView):
             msg = f"Check-in successful! {remaining} remaining for this {goal.period_unit}." if remaining > 0 else "You've completed your goal for this period!"
             messages.success(self.request, msg)
 
-        return redirect('habit-goal-details', pk=goal.pk)
+        return redirect('goals')

@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DeleteView
 
 from common.mixins import UserIsOwnerMixin
-from goals.models import TargetGoal
+from goals.models import TargetGoal, HabitGoal
 
 
 class TargetGoalDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
@@ -15,3 +15,4 @@ class TargetGoalDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context['goal'] = self.object
         return context
+

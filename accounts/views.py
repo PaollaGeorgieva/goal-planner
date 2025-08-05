@@ -128,7 +128,5 @@ class CustomPasswordChangeView(PasswordChangeView):
         pk = self.kwargs['pk']
         return reverse('profile-details', kwargs={'pk': pk})
 
-def app_user_delete_view(request, pk: int):
-    pass
 
 

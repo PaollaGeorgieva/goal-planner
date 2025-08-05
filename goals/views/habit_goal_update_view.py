@@ -28,10 +28,7 @@ class HabitGoalUpdateView(LoginRequiredMixin, UserIsOwnerMixin,GoalFormValidMixi
     def get_success_url(self):
         return reverse_lazy('habit-goal-details', kwargs={'pk': self.object.pk})
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
+
 
 
 

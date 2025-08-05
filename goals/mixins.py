@@ -26,7 +26,7 @@ class GoalListMixin:
         )
 
     def get_recent_goals(self, limit=4, user=None):
-
+        user = self.get_user()
         all_goals = self.get_all_user_goals(user)
         return all_goals[:limit]
 
@@ -52,7 +52,7 @@ class GoalListMixin:
         elif selected_category == 'Habit':
             return HabitGoal.objects.filter(user=user, is_completed=False).order_by('-created_at')
 
-            # 3) Ако искаме само Target (незавършени):
+
         elif selected_category == 'Target':
             return TargetGoal.objects.filter(user=user, is_completed=False).order_by('-created_at')
 
@@ -61,11 +61,13 @@ class GoalListMixin:
             base_filters = dict(user=user, is_completed=False)
 
             if selected_category and selected_category != 'All':
-                try:
-                    cat = Category.objects.get(name=selected_category)
-                    base_filters['category'] = cat
-                except Category.DoesNotExist:
+                cat = Category.objects.filter(
+                    Q(is_system=True) | Q(created_by=user),
+                    name=selected_category
+                ).first()
+                if not cat:
                     return []
+                base_filters['category'] = cat
 
             qs_target = TargetGoal.objects.filter(**base_filters)
             qs_habit = HabitGoal.objects.filter(**base_filters)
@@ -138,10 +140,9 @@ class GoalFormValidMixin:
         if new_category_name:
             category, created = Category.objects.get_or_create(
                 name=new_category_name,
-                defaults={
-                    'is_system': False,
-                    'created_by': self.request.user
-                }
+                created_by=self.request.user,
+                defaults={'is_system': False}
+
             )
             goal.category = category
         else:

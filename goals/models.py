@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     is_system = models.BooleanField(default=False)
     created_by = models.ForeignKey(
         'accounts.AppUser',
@@ -20,6 +20,19 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        constraints = [
+
+            models.UniqueConstraint(
+                fields=['name'],
+                condition=models.Q(is_system=True),
+                name='unique_system_category_name'
+            ),
+
+            models.UniqueConstraint(
+                fields=['created_by', 'name'],
+                name='unique_user_category_name'
+            ),
+        ]
         ordering = ['-is_system', 'name']
 
     def __str__(self):

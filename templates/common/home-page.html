@@ -103,8 +103,12 @@
 
 
 {% block scripts %}
+	<script>
+		window.userId = "{{ request.user.pk }}";
+	</script>
 	<script src="{% static 'js/focus-card.js' %}"></script>
 {% endblock %}
+
 
 
 
