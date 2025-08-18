@@ -109,7 +109,7 @@ class EditNoteView(LoginRequiredMixin, NotesGoalContextMixin, View):
         note = get_object_or_404(
             Note,
             pk=note_id,
-            content_type=ContentType.objects.get_for_model(self.goal_model),
+            content_type=self.content_type, #ПРОМЕНЕНО беше ContentType.objects.get_for_model(self.goal_model),
             object_id=self.goal.pk
         )
         form = NoteEditForm(request.POST, request.FILES, instance=note)

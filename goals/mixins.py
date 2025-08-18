@@ -94,7 +94,7 @@ class CategoryMixin:
 
         if self.instance.pk:
             self.fields['category'].initial = self.instance.category
-
+## може да е статичен
     def get_filtered_categories(self, user):
         return Category.objects.filter(
             models.Q(is_system=True) | models.Q(created_by=user)

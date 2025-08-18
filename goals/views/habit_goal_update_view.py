@@ -15,6 +15,10 @@ class HabitGoalUpdateView(LoginRequiredMixin, UserIsOwnerMixin,GoalFormValidMixi
     form_class = HabitGoalUpdateForm
     template_name = 'goals/create-form.html'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
     def dispatch(self, request, *args, **kwargs):
@@ -28,7 +32,9 @@ class HabitGoalUpdateView(LoginRequiredMixin, UserIsOwnerMixin,GoalFormValidMixi
     def get_success_url(self):
         return reverse_lazy('habit-goal-details', kwargs={'pk': self.object.pk})
 
-
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['goal_type'] = 'habit'
+        return context
 
 

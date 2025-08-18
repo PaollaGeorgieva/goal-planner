@@ -67,6 +67,7 @@ class HabitGoalCreateForm(GoalBaseForm):
 
 
 class HabitGoalUpdateForm(HabitGoalCreateForm):
+
     class Meta(HabitGoalCreateForm.Meta):
         fields = \
             [

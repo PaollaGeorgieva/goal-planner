@@ -106,7 +106,7 @@ class HabitGoal(Goal):
 
             start = today - datetime.timedelta(days=today.weekday())
             end = start + datetime.timedelta(days=7)
-        else:  # 'day'
+        else:
             start = today
             end = today + datetime.timedelta(days=1)
 

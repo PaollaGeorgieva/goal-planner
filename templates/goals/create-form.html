@@ -15,6 +15,9 @@
 
             <form id="create-goal-form" method="post">
                 {% csrf_token %}
+            {% if form.instance.pk %}
+                <input type="hidden" id="current_goal_type" value="{{ goal_type }}">
+            {% endif %}
 
                 <!-- Type (inline row) -->
                 {% if not form.instance.pk %}
@@ -34,6 +37,7 @@
                             <span class="error">{{ form.goal_type.errors.0 }}</span>
                         {% endif %}
                     </div>
+
                 {% endif %}
 
                 <!-- Title & Category (side by side) -->

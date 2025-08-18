@@ -15,6 +15,11 @@ class TargetGoalUpdateView(LoginRequiredMixin,UserIsOwnerMixin,GoalFormValidMixi
     form_class = TargetGoalUpdateForm
     template_name = 'goals/create-form.html'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 
     def dispatch(self, request, *args, **kwargs):
         goal = self.get_object()

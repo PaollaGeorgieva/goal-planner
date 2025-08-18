@@ -42,7 +42,8 @@ class HabitGoalDetailView(LoginRequiredMixin, DetailView):
         current_checks = goal.get_current_period_checks(today=today)
 
         if current_checks >= goal.target_per_period:
-            (messages.warning(self.request,f"You've already completed your target ({goal.target_per_period}) for this {goal.period_unit}."))
+            (messages.warning(self.request,
+                              f"You've already completed your target ({goal.target_per_period}) for this {goal.period_unit}."))
         else:
             HabitCheck.objects.create(habit=goal, date=today)
             remaining = goal.target_per_period - (current_checks + 1)
@@ -50,3 +51,34 @@ class HabitGoalDetailView(LoginRequiredMixin, DetailView):
             messages.success(self.request, msg)
 
         return redirect('goals')
+
+    # def post(self, request, *args, **kwargs):
+    #     goal = self.get_object()
+    #     today = date.today()
+    #     Поправена част
+    #     daily_checks = HabitCheck.objects.filter(habit=goal, date=today).count()
+    #     period_checks = goal.get_current_period_checks(today=today)
+    #
+    #     if goal.period_unit == 'week' and daily_checks >= 1:
+    #         messages.warning(
+    #             request,
+    #             "You've already checked in today – weekly goals allow only one check per day."
+    #         )
+    #     До тук
+    #     elif period_checks >= goal.target_per_period:
+    #         messages.warning(
+    #             request,
+    #             f"You've already completed your target ({goal.target_per_period}) for this {goal.period_unit}."
+    #         )
+    #     else:
+    #         HabitCheck.objects.create(habit=goal, date=today)
+    #         remaining = goal.target_per_period - (period_checks + 1)
+    #         msg = (
+    #             f"Check-in successful! {remaining} remaining for this {goal.period_unit}."
+    #             if remaining > 0
+    #             else "You've completed your goal for this period!"
+    #         )
+    #         messages.success(request, msg)
+    #
+    #     return redirect('goals')
+
