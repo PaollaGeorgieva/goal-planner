@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DeleteView
 
 from common.mixins import UserIsOwnerMixin
-from goals.models import TargetGoal, HabitGoal
+from goals.models import TargetGoal
 
 
 class TargetGoalDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):

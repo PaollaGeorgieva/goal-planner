@@ -51,14 +51,6 @@
           <p>{{ goal.description }}</p>
         </div>
 
-        {% if messages %}
-          <ul class="messages">
-            {% for msg in messages %}
-              <li class="{{ msg.tags }}">{{ msg }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-
         <!-- Actions -->
         <div class="goal-actions">
             {% if not goal.is_completed %}

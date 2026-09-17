@@ -1,16 +1,13 @@
+from datetime import datetime, time, timedelta
 
-
-from django.db.models import Value, F, CharField
 from django.utils import timezone
-from datetime import datetime, date, time, timedelta
+
 from goals.models import TargetGoal, HabitGoal, HabitCheck
 from steps.models import Step
-from typing import List, Dict, Any
-
 
 def calculate_current_streak(user) -> int:
 
-    today = timezone.localdate()
+    current_date = timezone.localdate()
     streak = 0
 
 
@@ -24,63 +21,123 @@ def calculate_current_streak(user) -> int:
     )
 
 
-    while today in checked_dates:
+    while current_date in checked_dates:
         streak += 1
-        today -= timedelta(days=1)
+        current_date -= timedelta(days=1)
 
     return streak
 
 
-def get_recent_activity(user, limit: int = 5) -> List[Dict[str, Any]]:
 
-    tz = timezone.get_current_timezone()
 
-    def fetch_activities(queryset, verb_label: str, name_field: str, date_field: str):
-        return (
-            queryset
-            .annotate(
-                verb=Value(verb_label, output_field=CharField()),
-                name=F(name_field),
-                raw_date=F(date_field),
-            )
-            .values('verb', 'name', 'raw_date')
+def build_activity(verb, name, activity_date):
+
+    if not isinstance(activity_date, datetime):
+        activity_date = datetime.combine(activity_date, time.min)
+
+    if timezone.is_naive(activity_date):
+        activity_date = timezone.make_aware(
+            activity_date,
+            timezone.get_current_timezone(),
         )
 
-    target_qs = fetch_activities(
-        TargetGoal.objects.filter(user=user, is_completed=True, completed_at__isnull=False),
-        'Completed', 'title', 'completed_at'
+    return {
+        "verb": verb,
+        "name": name,
+        "activity_date": activity_date,
+    }
+
+
+def get_recent_activity(user, limit=5):
+
+    activities = []
+
+    target_goals = TargetGoal.objects.filter(
+        user=user,
+        is_completed=True,
+        completed_at__isnull=False,
+    ).values_list("title", "completed_at")
+
+    for title, completed_at in target_goals:
+        activities.append(build_activity("Completed", title, completed_at))
+
+    habit_goals = HabitGoal.objects.filter(
+        user=user,
+        is_completed=True,
+        completed_at__isnull=False,
+    ).values_list("title", "completed_at")
+
+    for title, completed_at in habit_goals:
+        activities.append(build_activity("Completed", title, completed_at))
+
+    completed_steps = Step.objects.filter(
+        target_goal__user=user,
+        completed=True,
+        completed_at__isnull=False,
+    ).values_list("title", "completed_at")
+
+    for title, completed_at in completed_steps:
+        activities.append(build_activity("Completed step", title, completed_at))
+
+    habit_checks = HabitCheck.objects.filter(habit__user=user,).values_list("habit__title", "date")
+
+    for title, check_date in habit_checks:
+        activities.append(build_activity("Checked in", title, check_date))
+
+
+    activities.sort(
+        key=lambda activity: activity["activity_date"],
+        reverse=True,
     )
 
+    if limit is None:
+        return activities
 
-    habit_qs = fetch_activities(
-        HabitGoal.objects.filter(user=user, is_completed=True, completed_at__isnull=False),
-        'Completed', 'title', 'completed_at'
+    return activities[:limit]
+
+
+
+def get_user_statistics(user):
+
+    goals_created = (
+            TargetGoal.objects.filter(user=user).count() +
+            HabitGoal.objects.filter(user=user).count()
     )
+    completed_goals = TargetGoal.objects.filter(user=user, is_completed=True).count()
+    active_habits = HabitGoal.objects.filter(user=user, is_completed=False).count()
+    current_streak = calculate_current_streak(user)
 
-    check_qs = fetch_activities(
-        HabitCheck.objects.filter(habit__user=user),
-        'Checked in', 'habit__title', 'date'
-    )
+    return {
+        "goals_created": goals_created,
+        "completed_goals": completed_goals,
+        "active_habits": active_habits,
+        "current_streak": current_streak,
+    }
 
 
-    step_qs = fetch_activities(
-        Step.objects.filter(target_goal__user=user, completed=True, completed_at__isnull=False),
-        'Completed step', 'title', 'completed_at'
-    )
+def build_activity_calendar(user):
+    all_activities = get_recent_activity(user, limit=None)
+    recent_activities = all_activities[:8]
+    last_activity = all_activities[0] if all_activities else None
 
-    # Merge
-    activities: List[Dict[str, Any]] = []
-    for record in list(target_qs) + list(habit_qs) + list(step_qs) + list(check_qs):
-        raw_date = record.pop('raw_date')
-        if isinstance(raw_date, datetime):
-            dt = raw_date
-            if timezone.is_naive(dt):
-                dt = timezone.make_aware(dt, tz)
+    today = timezone.localdate()
+    start_month = today.replace(day=1)
+    monthly_activities = [
+        activity for activity in all_activities
+        if timezone.localdate(activity['activity_date']) >= start_month
+    ]
+
+    calendar_map = {}
+    for activity in monthly_activities:
+        date_key = timezone.localdate(activity['activity_date']).isoformat()
+        if activity['verb'] in ('Completed', 'Completed step'):
+            status = 'completed'
         else:
-            dt = datetime.combine(raw_date, time.min)
-            dt = timezone.make_aware(dt, tz)
+            status = 'checked-in'
+        calendar_map.setdefault(date_key, []).append(status)
 
-        activities.append({**record, 'activity_date': dt})
-
-    activities.sort(key=lambda x: x['activity_date'], reverse=True)
-    return activities[:limit] if limit is not None else activities
+    return {
+        'recent_activity': recent_activities,
+        'last_activity': last_activity,
+        'calendar_map': calendar_map,
+    }

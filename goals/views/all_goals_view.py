@@ -1,10 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-
+from django.utils import timezone
 from goals.forms import SearchForm
 from goals.mixins import GoalListMixin
-
-
 
 class AllGoalsView(LoginRequiredMixin,GoalListMixin, ListView):
     template_name = 'goals/goals-page.html'
@@ -26,16 +24,16 @@ class AllGoalsView(LoginRequiredMixin,GoalListMixin, ListView):
         all_goals = self.get_all_user_goals()
 
 
-        active_categories = {g.category for g in all_goals if not g.is_completed}
+        active_categories = {goal.category for goal in all_goals if not goal.is_completed}
         all_categories = self.get_all_user_categories()
-        filtered_categories = [cat for cat in all_categories if cat in active_categories]
+        filtered_categories = [category for category in all_categories if category in active_categories]
 
         context.update({
             'search_form': SearchForm(initial={'query': self.request.GET.get('query', '')}),
             'selected_category': selected_category,
-            'recent_goals': self.get_recent_goals(),
             'categories': filtered_categories,
             'show_completed': any(g.is_completed for g in all_goals),
+            'today':timezone.localdate()
         })
 
         return context

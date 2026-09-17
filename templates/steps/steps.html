@@ -1,13 +1,6 @@
 {% extends 'common/base.html' %}
 {% block content %}
 <main class="steps-container">
-      {% if messages %}
-          <ul class="messages">
-            {% for msg in messages %}
-              <li class="{{ msg.tags }}">{{ msg }}</li>
-            {% endfor %}
-          </ul>
-      {% endif %}
   <div class="steps-card">
     <h1 class="steps-title">🛠 Manage Steps for "{{ goal.title }}"</h1>
 
@@ -24,6 +17,7 @@
     <ul class="steps-list">
       {% for step in steps %}
       <li class="step-item {% if step.completed %}completed{% endif %}">
+        {% if not goal.is_completed %}
         <form method="post" action="{% url 'steps:toggle-step' goal.pk step.pk %}">
           {% csrf_token %}
           <div class="step-content">
@@ -35,6 +29,11 @@
             <a href="{% url 'steps:edit-step' goal.pk step.pk %}" class="edit-step-btn">✏️</a>
           </div>
         </form>
+        {% else %}
+          <div class="step-content">
+            <span class="step-text">{{ step.title }}</span>
+          </div>
+        {% endif %}
       </li>
       {% empty %}
       <li class="no-steps">No steps added yet.</li>
@@ -42,9 +41,11 @@
     </ul>
 
     <div class="add-step-container">
+      {% if not goal.is_completed %}
       <a href="{% url 'steps:step-create' pk=goal.id %}" class="add-step-btn">
         <span class="plus-icon">➕</span> Add New Step
       </a>
+      {% endif %}
     </div>
 
     <div class="steps-footer">

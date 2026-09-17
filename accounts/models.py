@@ -55,4 +55,4 @@ class Profile(models.Model):
 
     @property
     def full_name(self):
-        return f"{self.first_name or ''}  {self.last_name or ''}"
+        return f"{self.first_name or ''} {self.last_name or ''}".strip()

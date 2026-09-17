@@ -80,7 +80,7 @@
             <li><strong>Active Habits:</strong> {{ active_habits }}</li>
             <li><strong>Current Streak:</strong> {{ current_streak }}</li>
 {#            <li><strong>Badges:</strong> 🏅 10‑Book Challenger, 🔖 Habit Hero</li>#}
-            <li><strong>Last Activity:</strong> {{ last_activity.verb }} “{{ last_activity.name }}” – {{ last_activity.date|date:"M j, Y" }}</li>
+            <li><strong>Last Activity:</strong> {{ last_activity.verb }} “{{ last_activity.name }}” – {{ last_activity.activity_date|date:"M j, Y" }}</li>
           </ul>
         </section>
 
@@ -106,13 +106,13 @@
           </p>
       </section>
 
-        </section>
+
 
        <section id="activity" class="panel">
           <h1>🕒 Recent Activity</h1>
           <ul class="activity-list">
             {% for act in recent_activity %}
-              <li>✔️ {{ act.verb }} “{{ act.name }}” – {{ act.date|date:"M j, Y" }}</li>
+              <li>✔️ {{ act.verb }} “{{ act.name }}” – {{ act.activity_date|date:"M j, Y" }}</li>
             {% empty %}
               <li>No recent activity.</li>
             {% endfor %}

@@ -7,7 +7,7 @@ from django.views.generic import UpdateView
 from common.mixins import UserIsOwnerMixin
 from goals.forms import TargetGoalUpdateForm
 from goals.mixins import GoalFormValidMixin
-from goals.models import TargetGoal, Category
+from goals.models import TargetGoal
 
 
 class TargetGoalUpdateView(LoginRequiredMixin,UserIsOwnerMixin,GoalFormValidMixin,UpdateView):

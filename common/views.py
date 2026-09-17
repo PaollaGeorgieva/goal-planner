@@ -1,8 +1,5 @@
-import datetime
-import random
-from datetime import date
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 from django.views.generic import TemplateView
 
 
@@ -20,12 +17,14 @@ class HomePageView(LoginRequiredMixin,GoalListMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['recent_goals'] = self.get_recent_goals(limit=4)
-        day_number = datetime.date.today().toordinal()
+        today = timezone.localdate()
+        day_number = today.toordinal()
 
         index = day_number % len(GOALS)
 
 
         context['daily_goal'] = GOALS[index]
+        context['today'] = today
         return context
 
 

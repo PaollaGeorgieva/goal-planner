@@ -4,7 +4,6 @@ from django.views.generic import CreateView
 
 from goals.forms import HabitGoalCreateForm, TargetGoalCreateForm
 from goals.mixins import GoalFormValidMixin
-from goals.models import Category
 
 
 class GoalCreateView(LoginRequiredMixin, GoalFormValidMixin, CreateView):

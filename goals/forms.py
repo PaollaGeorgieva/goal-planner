@@ -15,6 +15,8 @@ class GoalBaseForm(CategoryMixin, forms.ModelForm):
         label="New Category",
         widget=forms.TextInput(attrs={'placeholder': 'If not in the list'}))
 
+
+
     class Meta:
         model = None
         fields = ['goal_type', 'title', 'description', 'start_date', 'category', 'new_category']

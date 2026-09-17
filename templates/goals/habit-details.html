@@ -43,7 +43,7 @@
         <h3 class="goal-title">{{ goal.title }}</h3>
         <div class="goal-meta">
           <p><strong>Category:</strong> {{ goal.category }}</p>
-          <p><strong>Started:</strong> {{ goal.created_at|date:"F j, Y" }}</p>
+          <p><strong>Started:</strong> {{ goal.start_date|date:"F j, Y" }}</p>
         </div>
 
         <div class="goal-description">
@@ -55,14 +55,6 @@
           <p><strong>Frequency:</strong> Every {{ goal.period_unit }}</p>
           <p><strong>Target per {{ goal.period_unit }}:</strong> {{ goal.target_per_period }} {% if goal.target_per_period == 1 %}time{% else %}times{% endif %}</p>
         </div>
-
-            {% if messages %}
-              <ul class="messages">
-                {% for msg in messages %}
-                  <li class="{{ msg.tags }}">{{ msg }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
 
         <div class="goal-actions">
             {% if not goal.is_completed %}

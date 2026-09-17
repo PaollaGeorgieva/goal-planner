@@ -1,4 +1,4 @@
-{% include 'common/base.html' %}
+{% extends 'common/base.html' %}
 {% load static %}
 
 {% block content %}
@@ -70,9 +70,8 @@
                         {% endif %}
                     </div>
                     <div class="form-group">
-                        <label for="id_start_date">Start Date</label>
-                        <input type="date" name="start_date" id="id_start_date" required
-                               value="{{ form.start_date.value|date:'Y-m-d'|default_if_none:'' }}{% if not form.start_date.value %}{% now "Y-m-d" %}{% endif %}">
+                        <label for="{{ form.start_date.id_for_label }}">Start Date</label>
+                        {{ form.start_date }}
                         {% if form.start_date.errors %}
                             <span class="error">{{ form.start_date.errors.0 }}</span>
                         {% endif %}
@@ -82,9 +81,8 @@
                 <!-- End Date (Target only) -->
                 <div id="target-fields" class="form-row">
                     <div class="form-group">
-                        <label for="id_end_date">End Date</label>
-                        <input type="date" name="end_date" id="id_end_date"
-                               value="{{ form.end_date.value|date:'Y-m-d'|default_if_none:'' }}{% if not form.end_date.value %}{% now "Y-m-d" %}{% endif %}">
+                        <label for="{{ form.end_date.id_for_label }}">End Date</label>
+                        {{ form.end_date }}
                         {% if form.end_date.errors %}
                             <span class="error">{{ form.end_date.errors.0 }}</span>
                         {% endif %}

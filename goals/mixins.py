@@ -6,13 +6,13 @@ from operator import attrgetter
 
 from goals.models import TargetGoal, HabitGoal, Category
 from django.db.models import Q
-from django.db import models
+
 
 class GoalListMixin:
     def get_user(self):
         return self.request.user
 
-    def get_all_user_goals(self, user=None):
+    def get_all_user_goals(self):
 
         user = self.get_user()
 
@@ -25,9 +25,8 @@ class GoalListMixin:
             reverse=True
         )
 
-    def get_recent_goals(self, limit=4, user=None):
-        user = self.get_user()
-        all_goals = self.get_all_user_goals(user)
+    def get_recent_goals(self, limit=4):
+        all_goals = self.get_all_user_goals()
         return all_goals[:limit]
 
     def get_all_user_categories(self):
@@ -46,8 +45,8 @@ class GoalListMixin:
 
 
         if selected_category == 'Completed':
-            qs_target = TargetGoal.objects.filter(user=user, is_completed=True)
-            qs_habit = HabitGoal.objects.filter(user=user, is_completed=True)
+            target_goals = TargetGoal.objects.filter(user=user, is_completed=True)
+            habit_goals = HabitGoal.objects.filter(user=user, is_completed=True)
 
         elif selected_category == 'Habit':
             return HabitGoal.objects.filter(user=user, is_completed=False).order_by('-created_at')
@@ -61,26 +60,25 @@ class GoalListMixin:
             base_filters = dict(user=user, is_completed=False)
 
             if selected_category and selected_category != 'All':
-                cat = Category.objects.filter(
+                category = Category.objects.filter(
                     Q(is_system=True) | Q(created_by=user),
                     name=selected_category
                 ).first()
-                if not cat:
+                if not category:
                     return []
-                base_filters['category'] = cat
+                base_filters['category'] = category
 
-            qs_target = TargetGoal.objects.filter(**base_filters)
-            qs_habit = HabitGoal.objects.filter(**base_filters)
+            target_goals = TargetGoal.objects.filter(**base_filters)
+            habit_goals = HabitGoal.objects.filter(**base_filters)
 
         filtered_goals = sorted(
-            chain(qs_target, qs_habit),
+            chain(target_goals, habit_goals),
             key=attrgetter('created_at'),
             reverse=True
         )
         return filtered_goals
 
 
-## forms mixin
 
 class CategoryMixin:
 
@@ -94,10 +92,11 @@ class CategoryMixin:
 
         if self.instance.pk:
             self.fields['category'].initial = self.instance.category
-## може да е статичен
-    def get_filtered_categories(self, user):
+
+    @staticmethod
+    def get_filtered_categories(user):
         return Category.objects.filter(
-            models.Q(is_system=True) | models.Q(created_by=user)
+            Q(is_system=True) | Q(created_by=user)
         ).order_by('-is_system', 'name')
 
     def clean(self):
@@ -138,7 +137,7 @@ class GoalFormValidMixin:
 
 
         if new_category_name:
-            category, created = Category.objects.get_or_create(
+            category, _ = Category.objects.get_or_create(
                 name=new_category_name,
                 created_by=self.request.user,
                 defaults={'is_system': False}
@@ -148,5 +147,4 @@ class GoalFormValidMixin:
         else:
             goal.category = selected_category
 
-        goal.save()
         return super().form_valid(form)

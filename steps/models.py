@@ -14,15 +14,13 @@ class Step(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
-
         if self.completed and self.completed_at is None:
             self.completed_at = timezone.now()
+
+        if not self.completed:
+            self.completed_at = None
+
         super().save(*args, **kwargs)
-
-
-
-
-
 
 
     def __str__(self):

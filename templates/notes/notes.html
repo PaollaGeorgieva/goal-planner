@@ -4,16 +4,11 @@
 {% block content %}
 <main class="notes-container">
 
-        {% if messages %}
-          <ul class="messages">
-            {% for msg in messages %}
-              <li class="{{ msg.tags }}">{{ msg }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
     <header class="notes-header">
         <h1>Reading Notes</h1>
+        {% if not goal.is_completed %}
         <a href="{% url 'notes:add-note' goal_type=goal_type pk=goal.pk %}" class="add-note-btn">+ Add Note</a>
+        {% endif %}
     </header>
 
 
@@ -33,10 +28,16 @@
                     <p>{{ note.content }}</p>
                     <div class="note-date">Created: {{ note.created_at|date:"F j, Y H:i" }}</div>
                 </div>
-                <a class='add-note-btn' href="{% url 'notes:edit-note' goal_type=goal_type pk=goal.id note_id=note.id  %}"> Edit </a>
+                {% if not goal.is_completed %}
+                  <a class='add-note-btn' href="{% url 'notes:edit-note' goal_type=goal_type pk=goal.id note_id=note.id  %}"> Edit </a>
+                {% endif %}
             </div>
         {% empty %}
-            <p class="no-notes">No notes yet. Click “+ Add Note” to create one.</p>
+            {% if goal.is_completed %}
+              <p class="no-notes">No notes.</p>
+            {% else %}
+              <p class="no-notes">No notes yet. Click “+ Add Note” to create one.</p>
+            {% endif %}
         {% endfor %}
     </section>
 </main>

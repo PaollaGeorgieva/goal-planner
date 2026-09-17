@@ -1,5 +1,7 @@
 import datetime
 
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -69,8 +71,7 @@ class TargetGoal(Goal):
         return int((completed_steps / total_steps) * 100)
 
     def can_be_completed(self):
-        qs = self.steps.all()
-        return (not qs.exists()) or all(s.completed for s in qs)
+        return not self.steps.filter(completed=False).exists()
 
     def mark_as_completed(self):
 
@@ -82,8 +83,13 @@ class TargetGoal(Goal):
             self.completed_at = timezone.now()
         super().save(update_fields=['is_completed','completed_at'])
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    def clean(self):
+        super().clean()
+        if self.start_date and self.end_date:
+            if self.start_date > self.end_date:
+                raise ValidationError({"end_date": "End date cannot be before start date."})
+
+
 
 
 
@@ -92,7 +98,7 @@ class HabitGoal(Goal):
         ('day', 'Day'),
         ('week', 'Week'),
     ]
-    target_per_period = models.PositiveIntegerField(default=1)
+    target_per_period = models.PositiveIntegerField(validators=[MinValueValidator(1)], default=1)
     period_unit = models.CharField(max_length=10, choices=PERIOD_CHOICES)
     completed_at = models.DateTimeField(null=True, blank=True)
 
@@ -100,7 +106,7 @@ class HabitGoal(Goal):
     def get_current_period_checks(self, today=None):
 
         if today is None:
-            today = datetime.date.today()
+            today = timezone.localdate()
 
         if self.period_unit == 'week':
 
@@ -126,11 +132,12 @@ class HabitGoal(Goal):
             self.completed_at = timezone.now()
         super().save(update_fields=['is_completed', 'completed_at'])
 
+
     def save(self, *args, **kwargs):
 
         if self.pk is not None:
-            old = HabitGoal.objects.get(pk=self.pk)
-            if old.is_completed:
+            saved_habit = HabitGoal.objects.get(pk=self.pk)
+            if saved_habit.is_completed:
                 raise ValueError("Cannot modify a completed habit goal.")
         super().save(*args, **kwargs)
 

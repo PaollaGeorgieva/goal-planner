@@ -27,7 +27,7 @@
             <button type="submit" class="submit-button">Save Note</button>
         </form>
 
-        {% if form.instance.pk %}
+        {% if form.instance.pk and not goal.is_completed %}
         <form method="post" action="{% url 'notes:delete-note' goal_type=goal_type pk=goal.id note_id=note.id  %}" class="delete-form">
             {% csrf_token %}
             <div class="button-row">

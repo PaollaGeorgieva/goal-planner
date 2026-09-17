@@ -4,7 +4,6 @@
 {% block body_class %}dashboard-page{% endblock %}
 {% block content %}
 
-
 <main class="dashboard-grid">
 
   <nav class="category-sidebar">
@@ -82,19 +81,17 @@
             {% if goal.goal_type == "habit" %}
               {{ goal.get_current_period_checks }}/{{ goal.target_per_period }} this {{ goal.period_unit }}
             {% elif goal.end_date%}
-              {% with days_passed=goal.start_date|timeuntil:goal.end_date %}
-                {% if days_passed %}
-                  {{ days_passed }} remaining
-                {% else %}
-                  {{ goal.progress_percent }}% complete
-                {% endif %}
-              {% endwith %}
+              {% if goal.end_date >= today %}
+                {{ goal.end_date|timeuntil:today }} remaining
+              {% else %}
+                {{ goal.progress_percent }}% complete
+              {% endif %}
             {% endif %}
           </div>
 
 
           <div class="goal-actions">
-            {% if goal.goal_type == "habit" %}
+            {% if goal.goal_type == "habit"  and not goal.is_completed %}
                 <form action="{% url 'habit-goal-details' pk=goal.pk %}" method="post" class="d-inline">
 
                     {% csrf_token %}
@@ -118,17 +115,16 @@
 
   {# ----------------- Pagination ----------------- #}
     {% if page_obj.paginator.num_pages > 1 %}
-      {% with qs=request.GET.urlencode|cut:"page={{ page_obj.number }}" %}
         <nav class="pagination-numbers">
-          {% for num in page_obj.paginator.page_range %}
-            <a
-              href="?{% if qs %}{{ qs }}&{% endif %}page={{ num }}"
-              class="{% if num == page_obj.number %}current-page{% else %}page-link{% endif %}">
-              {{ num }}
-            </a>
-          {% endfor %}
+            {% for num in page_obj.paginator.page_range %}
+                <a
+                    href="{% querystring page=num %}"
+                    class="{% if num == page_obj.number %}current-page{% else %}page-link{% endif %}"
+                >
+                    {{ num }}
+                </a>
+            {% endfor %}
         </nav>
-      {% endwith %}
     {% endif %}
   </section>
 
