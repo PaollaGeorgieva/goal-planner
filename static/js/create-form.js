@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const targetFields = document.getElementById("target-fields");
     const typeRadios = document.querySelectorAll('input[name="goal_type"]');
     const currentGoalType = document.getElementById("current_goal_type");
+    const endDateInput = document.getElementById("id_end_date");
 
     function toggleFields() {
         let selectedType;
@@ -14,6 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
 
             selectedType = document.querySelector('input[name="goal_type"]:checked')?.value || 'target';
+        }
+
+        if (endDateInput) {
+            endDateInput.disabled = selectedType === "habit";
         }
 
         if (selectedType === "habit") {

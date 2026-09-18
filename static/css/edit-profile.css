@@ -29,7 +29,7 @@
   font-size: 2.2rem;
   font-weight: bold;
   text-align: center;
-  color: #333;
+  color: #2c3e3e;
   margin-bottom: 2rem;
 }
 
@@ -55,14 +55,14 @@
 .form-group label {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #444;
+  color: #3b4c49;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
   padding: 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid #c8d0c7;
   border-radius: 8px;
   font-size: 1rem;
   background: #fff;
@@ -79,7 +79,7 @@
 .profile-edit-page .bio-section label {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #444;
+  color: #3b4c49;
 }
 
 .profile-edit-page .bio-section textarea {
@@ -93,12 +93,12 @@
 .profile-picture-group input[type="file"],
 .profile-picture-group label {
   font-size: 0.95rem;
-  color: #555;
+  color: #4d5d58;
 }
 
 .btn-save {
   align-self: center;
-  background-color: #6c63ff;
+  background-color: #2d7272;
   color: #fff;
   padding: 0.9rem 2.5rem;
   border: none;
@@ -110,7 +110,7 @@
 }
 
 .btn-save:hover {
-  background-color: #574fd6;
+  background-color: #24595a;
 }
 
 

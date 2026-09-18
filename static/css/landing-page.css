@@ -1,13 +1,13 @@
 :root {
-  --cool-gray: #8e9aaf;
-  --thistle: #cbc0d3;
-  --misty-rose: #efd3d7;
-  --pale-purple: #feeafa;
-  --lavender-web: #dee2ff;
-  --text-dark: #3b3b3b;
+  --cool-gray: #315f61;
+  --thistle: #a85343;
+  --misty-rose: #f8ded1;
+  --pale-purple: #fff8ed;
+  --lavender-web: #e9edfa;
+  --text-dark: #2c3e3e;
   --text-light: #ffffff;
-  --footer-bg: #cbc0d3;
-  --footer-text: #3b3b3b;
+  --footer-bg: #f5e7ce;
+  --footer-text: #2c3e3e;
   --border-radius-big: 2rem;
   --font-heading: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -152,7 +152,7 @@ header {
   max-width: 100%;
   margin: 3rem auto;
   overflow: hidden;
-  box-shadow: 0 4px 24px 0 rgba(80, 58, 136, 0.07);
+  box-shadow: 0 4px 24px 0 rgba(55, 75, 69, 0.1);
   background: #fff;
 }
 
@@ -185,7 +185,7 @@ header {
 .text-content h1 {
   font-size: 2.5rem;
   font-weight: 900;
-  color: #967dbf;
+  color: #a54f42;
   margin-bottom: 1.1rem;
   line-height: 1.1;
   letter-spacing: 0.04em;
@@ -195,7 +195,7 @@ header {
 
 .text-content p {
   font-size: 1.22rem;
-  color: #9c8f8f;
+  color: #5c6a63;
   margin-bottom: 2rem;
   font-family: 'Montserrat', 'Arial', sans-serif;
   letter-spacing: 0.02em;
@@ -214,7 +214,7 @@ header {
   left: 0;
   width: 100%;
   height: 38px;
-  box-shadow: 0 -2px 10px rgba(39, 16, 16, 0.09);
+  box-shadow: 0 -2px 10px rgba(55, 75, 69, 0.1);
   border-top-left-radius: var(--border-radius-big);
   border-top-right-radius: var(--border-radius-big);
   display: flex;
@@ -307,7 +307,7 @@ header {
   }
   .nav-item a:hover {
     background: var(--thistle);
-    color: var(--text-dark);
+    color: var(--text-light);
     border-bottom: none;
   }
   .user-profile {

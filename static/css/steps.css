@@ -2,22 +2,22 @@
   --form-background: #ffffff;
   --border-radius-big: 25px;
   --border-radius-round: 50%;
-  --h2-color: #9f8fb8;
-  --orange-background: #f5c4b0;
+  --h2-color: #2f686a;
+  --orange-background: #a85343;
   --hover-background: #ffffff;
-  --light-input-background: #f8f7ff;
-  --text-muted: #4b4453;
+  --light-input-background: #fffaf2;
+  --text-muted: #3b4c49;
   --input-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  --light-border: 1px solid rgba(159, 143, 184, 0.3);
-  --button-primary-hover: #f2b397;
+  --light-border: 1px solid rgba(135, 111, 91, 0.3);
+  --button-primary-hover: #8e443a;
   --font-primary: 'Inter', sans-serif;
   --font-heading: 'Inter', sans-serif;
 
 
-  --gradient-1: linear-gradient(135deg, #f8f7ff 0%, #e1d9f3 100%);
-  --gradient-2: linear-gradient(135deg, #ffe8e0 0%, #f5c4b0 100%);
-  --gradient-3: linear-gradient(135deg, #e1d9f3 0%, #9f8fb8 100%);
-  --gradient-4: linear-gradient(135deg, #ffd4c8 0%, #f2b397 100%);
+  --gradient-1: linear-gradient(135deg, #fffaf2 0%, #e4eee9 100%);
+  --gradient-2: linear-gradient(135deg, #fbe4d3 0%, #f2d2b7 100%);
+  --gradient-3: linear-gradient(135deg, #e4eee9 0%, #d2e5dc 100%);
+  --gradient-4: linear-gradient(135deg, #f5d1bf 0%, #e9bd9c 100%);
 }
 
 .steps {
@@ -25,7 +25,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: 	#FFFFF0
+  background: 	#fff9ed
 }
 
 
@@ -113,7 +113,7 @@
   appearance: none;
   width: 32px;
   height: 32px;
-  border: 2px solid var(--orange-background, #FF9800);
+  border: 2px solid var(--orange-background, #a85343);
   border-radius: 50%;
   background: #fff;
   display: inline-block;
@@ -127,13 +127,13 @@
 
 .step-content input[type="checkbox"]:hover {
   transform: scale(1.1) rotate(-5deg);
-  border-color: #FFA726;
-  box-shadow: 0 6px 18px rgba(255,152,0,0.15);
+  border-color: #b05c46;
+  box-shadow: 0 6px 18px rgba(168, 83, 67, 0.16);
 }
 
 .step-content input[type="checkbox"]:checked::after {
   content: "✓";
-  color: var(--orange-background, #FF9800);
+  color: var(--orange-background, #a85343);
   font-size: 1.4em;
   font-weight: bold;
   position: absolute;
@@ -145,8 +145,8 @@
 }
 
 .step-content input[type="checkbox"]:checked {
-  background: #FFF3E0;
-  border-color: #FF9800;
+  background: #fff2dd;
+  border-color: #a85343;
 }
 .step-text {
   font-size: 1.4rem;
@@ -197,7 +197,7 @@
   padding: 1rem 2rem;
   font-size: 1.2rem;
   border-radius: 30px;
-  box-shadow: 0 6px 20px rgba(245, 196, 176, 0.4);
+  box-shadow: 0 6px 20px rgba(168, 83, 67, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -210,7 +210,7 @@
 .add-step-btn:hover {
   background: linear-gradient(135deg, var(--button-primary-hover), var(--orange-background));
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 25px rgba(245, 196, 176, 0.6);
+  box-shadow: 0 10px 25px rgba(168, 83, 67, 0.4);
 }
 
 .plus-icon {
@@ -243,7 +243,7 @@
   background-color: var(--h2-color);
   color: white;
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(159, 143, 184, 0.4);
+  box-shadow: 0 6px 15px rgba(47, 104, 106, 0.35);
 }
 
 @media (max-width: 900px) {

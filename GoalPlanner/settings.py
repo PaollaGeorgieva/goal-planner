@@ -48,7 +48,6 @@ SOCIAL_MEDIA_APPS = [
     'allauth.socialaccount',
 
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
 ]
 # Application definition
 
@@ -188,30 +187,13 @@ SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
-        # 'APP': {
-                #     'client_id': config('GOOGLE_CLIENT_ID'),
-                #     'secret': config('GOOGLE_SECRET_KEY'),
-                #     'key': ''
-                # }
+        'APP': {
+            'client_id': config('GOOGLE_CLIENT_ID'),
+            'secret': config('GOOGLE_SECRET_KEY'),
+            'key': '',
+        },
 
     },
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile'],
-        'FIELDS': [
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'picture',
-        ],
-        # 'APP': {
-        #     'client_id': config('FACEBOOK_CLIENT_ID'),
-        #     'secret': config('FACEBOOK_SECRET_KEY'),
-        #     'key': ''
-        # }
-
-    }
 }
 
 SOCIALACCOUNT_LOGIN_ON_GET = True  

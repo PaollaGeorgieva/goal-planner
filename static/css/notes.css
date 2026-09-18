@@ -9,7 +9,7 @@
 .note-content {
   font-family: 'Roboto Mono', monospace;
   font-size: 1.15rem;
-  color: #444;
+  color: #3b4c49;
 }
 
 .notes-header {
@@ -33,7 +33,7 @@
   padding: 0.9rem 1.8rem;
   font-size: 1.15rem;
   border-radius: var(--radius-2xl);
-  box-shadow: 0 6px 20px rgba(169, 138, 247, 0.2);
+  box-shadow: 0 6px 20px rgba(45, 114, 114, 0.2);
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
 }
@@ -81,7 +81,7 @@
 .note-content p {
   margin: 0.5rem 0;
   font-size: 1.15rem;
-  color: #444;
+  color: #3b4c49;
 }
 
 .note-content pre {
@@ -114,7 +114,7 @@
 
 
 .note-card[data-category="health"] {
-  background: linear-gradient(135deg, var(--mint) 0%, var(--mint-dark) 100%);
+  background: linear-gradient(135deg, var(--mint) 0%, #d0e7dc 100%);
 }
 
 .note-card[data-category="training"] {
@@ -126,7 +126,7 @@
 }
 
 .note-card[data-category="learning"] {
-  background: linear-gradient(135deg, var(--lavender) 0%, var(--accent) 10%);
+  background: linear-gradient(135deg, var(--lavender) 0%, #dcebe5 10%);
 }
 
 .notes-list .note-card:nth-child(even) {
@@ -151,7 +151,7 @@
   margin-top: 1rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #b39ddb;
+  color: #456e68;
   font-style: italic;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
   padding-top: 0.5rem;

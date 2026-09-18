@@ -1,5 +1,5 @@
 .main-delete {
-    background: #f9f5ff;
+    background: #fff8ec;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
@@ -13,11 +13,11 @@
     background: white;
     padding: 3rem;
     border-radius: 2rem;
-    box-shadow: 0 10px 40px rgba(168, 140, 255, 0.2);
+    box-shadow: 0 10px 40px rgba(54, 104, 102, 0.18);
     text-align: center;
     max-width: 420px;
     width: 100%;
-    border: 2px solid #e2d6f5;
+    border: 2px solid #dac9b3;
     position: relative;
 }
 
@@ -28,7 +28,7 @@
 
 .delete-box h2 {
     font-size: 1.6rem;
-    color: #7e57c2;
+    color: #a54f42;
     margin-bottom: 2rem;
 }
 
@@ -60,12 +60,12 @@
 
 
 .btn.yes {
-    background: linear-gradient(135deg, #e57373, #f06292);
+    background: linear-gradient(135deg, #ad5046, #a4483e);
     color: white;
 }
 
 .btn.no {
-    background: linear-gradient(135deg, #aed581, #81c784);
+    background: linear-gradient(135deg, #397e70, #2d6b64);
     color: white;
     display: inline-block;
     text-align: center;

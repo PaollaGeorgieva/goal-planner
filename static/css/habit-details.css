@@ -3,11 +3,11 @@
 .one-goal .habit-meta {
   margin-top: 1.5rem;
   padding: 1rem;
-  background-color: #f9f6ff;
-  border: 1px solid #e1d5f0;
+  background-color: #fff9ed;
+  border: 1px solid #d7c5ae;
   border-radius: 8px;
   font-size: 0.95rem;
-  color: #444;
+  color: #3b4c49;
 }
 
 .one-goal .habit-meta p {
@@ -66,17 +66,17 @@
 .one-goal .dropdown-item {
   display: block;
   padding: 0.5rem 1rem;
-  color: #333;
+  color: #2c3e3e;
   text-decoration: none;
   font-size: 0.95rem;
 }
 
 .one-goal .dropdown-item:hover {
-  background-color: #f0f0f0;
+  background-color: #f5efe6;
 }
 
 .one-goal .dropdown-item.delete-btn {
-  color: #c0392b;
+  color: #a4433a;
 }
 
 
