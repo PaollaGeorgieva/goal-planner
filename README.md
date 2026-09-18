@@ -222,8 +222,5 @@ goal-planner/
 └── requirements.txt
 ```
 
-## Author
-
-Developed by [Paolla Georgieva](https://github.com/PaollaGeorgieva).
 
 
