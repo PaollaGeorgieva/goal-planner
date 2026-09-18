@@ -44,7 +44,7 @@ The application supports two types of goals:
 * Personal user profiles
 * Profile picture and personal information
 * Password management
-* Optional Google and Facebook authentication
+* Optional Google authentication
 
 ### REST API
 
@@ -114,23 +114,6 @@ SOCIALACCOUNT_PROVIDERS = {
         #     'secret': config('GOOGLE_SECRET_KEY'),
         #     'key': ''
         # }
-    },
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile'],
-        'FIELDS': [
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'picture',
-        ],
-        # To enable Facebook login, uncomment the APP block:
-        # 'APP': {
-        #     'client_id': config('FACEBOOK_CLIENT_ID'),
-        #     'secret': config('FACEBOOK_SECRET_KEY'),
-        #     'key': ''
-        # }
     }
 }
 ```
@@ -160,32 +143,6 @@ Remove any unnecessary placeholder buttons such as:
 </a>
 ```
 
-#### Facebook
-
-To enable Facebook login:
-
-1. Create a Facebook App and obtain your App ID and App Secret.
-2. Add them to `.env` as `FACEBOOK_CLIENT_ID` and `FACEBOOK_SECRET_KEY`.
-3. Uncomment the `APP` block under `facebook` in `SOCIALACCOUNT_PROVIDERS`.
-4. In `templates/accounts/register.html` and `templates/accounts/login.html`, uncomment:
-
-```html
-<a href="{% provider_login_url 'facebook' %}" class="btn btn-facebook">
-    <i class="fab fa-facebook-f"></i>
-    <span>Facebook</span>
-</a>
-```
-
-Remove any unnecessary placeholder buttons such as:
-
-```html
-<a href="#" class="btn btn-facebook">
-    <i class="fab fa-facebook-f"></i>
-    <span>Facebook</span>
-</a>
-```
-
-If you prefer not to use Facebook login, leave the `APP` block commented or comment out the entire `facebook` entry. Do the same for Google if you do not intend to use it.
 
 ### 5. Run migrations
 
